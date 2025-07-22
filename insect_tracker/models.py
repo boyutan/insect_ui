@@ -1,4 +1,4 @@
-from flaskui import db, login_manager, app
+from insect_tracker import db, login_manager, app
 from itsdangerous import URLSafeTimedSerializer as Serializer
 from flask_login import UserMixin
 

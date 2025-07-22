@@ -2,9 +2,9 @@ import os
 import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request
-from flaskui import app, db, bcrypt
-from flaskui.forms import RegistrationForm, LoginForm, UpdateAccountForm, UploadTrapImage
-from flaskui.models import User
+from insect_tracker import app, db, bcrypt
+from insect_tracker.forms import RegistrationForm, LoginForm, UpdateAccountForm, UploadTrapImage
+from insect_tracker.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route("/")
