@@ -80,7 +80,7 @@
         Upload your sticky trap image below!
   </h1>
 
-<form method="POST" action="" enctype="multipart/form-data">
+<form method="POST" action="" enctype="multipart/form-data" onsubmit="showLoader()">
   {{ form.hidden_tag() }}
 
   <div class="upload-wrapper">
@@ -100,4 +100,71 @@
     </div>
   </div>
 </form>
+{% if processed %}
+  <hr style="margin: 60px 0; border-top: 1px solid white; width: 80%;">
+
+  <h2 class="subheading" style="color: white;">Annotated Image</h2>
+  <div>
+    <img src="{{ annotated_img }}" alt="Annotated Output" style="max-width: 80%; border: 2px solid white; border-radius: 10px;">
+  </div>
+
+  <h2 class="subheading" style="margin-top: 40px; color: white;">Detected Insect Counts</h2>
+  <ul style="list-style-type: none; padding: 0; font-size: 1.5rem;">
+    {% for cls, count in class_counts.items() %}
+      <li><strong>{{ cls }}</strong>: {{ count }}</li>
+    {% endfor %}
+  </ul>
+
+  <h2 class="subheading" style="margin-top: 40px; color: white;">Download Your Results</h2>
+  <ul style="list-style-type: none; font-size: 1.3rem;">
+    <li><a href="{{ summary_csv }}" class="btn" style="color: black; background-color: white; padding: 8px 20px; margin: 5px; text-decoration: none; border-radius: 5px;">Summary CSV</a></li>
+    <li><a href="{{ detailed_csv }}" class="btn" style="color: black; background-color: white; padding: 8px 20px; margin: 5px; text-decoration: none; border-radius: 5px;">Detailed Predictions CSV</a></li>
+    <li><a href="{{ zip_path }}" class="btn" style="color: black; background-color: white; padding: 8px 20px; margin: 5px; text-decoration: none; border-radius: 5px;">Download Individual Image Crops (ZIP)</a></li>
+      <li>
+    <a href="{{ coco_json }}" class="btn"
+       style="color: black; background-color: white; padding: 8px 20px; margin: 5px; text-decoration: none; border-radius: 5px;">
+      COCO Annotations (JSON)
+    </a>
+  </li>
+  </ul>
+{% endif %}
+<!-- Loading Spinner -->
+<div id="loader" style="display:none;">
+  <div class="overlay"></div>
+  <div class="spinner"></div>
+</div>
+
+<style>
+  .overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+  }
+
+  .spinner {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid white;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+</style>
+
+<script>
+  function showLoader() {
+    document.getElementById('loader').style.display = 'block';
+  }
+</script>
 {% endblock %}

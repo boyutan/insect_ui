@@ -7,6 +7,7 @@ __pycache__/
 .venv/
 env/
 venv/
+myenv/
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
@@ -24,4 +25,6 @@ venv/
 # Logs
 *.log
 
-
+#models
+models/cls_model.keras
+models/detect_model.pt
