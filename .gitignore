@@ -26,5 +26,5 @@ myenv/
 *.log
 
 #models
-./models/cls_model.keras
-./models/detect_model.pt
+models/cls_model.keras
+models/detect_model.pt
